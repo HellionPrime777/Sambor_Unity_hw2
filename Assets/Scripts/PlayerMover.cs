@@ -6,10 +6,13 @@ public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _speed;
+    [SerializeField] private int _score;
     [SerializeField] private float _jumpForce;
 
 
     private bool _grounded;
+
+    public int Score => _score;
 
 
 
@@ -39,5 +42,14 @@ public class PlayerMover : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out Ground ground))
             _grounded = false;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.TryGetComponent(out Coin coin))
+        {
+
+            coin.gameObject.SetActive(false);
+            _score++;
+        }
     }
 }
